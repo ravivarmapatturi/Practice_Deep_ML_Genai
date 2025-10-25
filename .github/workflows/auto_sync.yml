@@ -1,0 +1,24 @@
+name: Manual Push to GitHub
+
+on:
+  push:        # disable automatic triggers
+    branches: main
+  push-repo:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to push changes
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "ravivarmapatturi"
+          git config --global user.email "ravivarmapatturi@gmail.com"
+
+      - name: Push local repo to GitHub
+        run: |
+          git add -A
+          git commit -m "Manual repo sync with GitHub" || echo "No changes to commit"
+          git push origin main
